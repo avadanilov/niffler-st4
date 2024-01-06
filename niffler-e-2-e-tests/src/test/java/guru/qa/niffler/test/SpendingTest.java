@@ -2,6 +2,7 @@ package guru.qa.niffler.test;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import guru.qa.niffler.jupiter.GenerateCategory;
 import guru.qa.niffler.jupiter.GenerateSpend;
 import guru.qa.niffler.model.CurrencyValues;
 import guru.qa.niffler.model.SpendJson;
@@ -30,6 +31,10 @@ public class SpendingTest extends BaseWebTest {
         loginPage.getSubmitButton().click();
     }
 
+    @GenerateCategory(
+            username = "duck",
+            category = "Обучение"
+    )
     @GenerateSpend(
             username = "duck",
             description = "QA.GURU Advanced 4",
@@ -48,10 +53,10 @@ public class SpendingTest extends BaseWebTest {
                 .getDeleteSpendingButton()
                 .click());
 
-        Allure.step("Check that spending was deleted", () -> {
-            mainPage.getSpendingTableRows()
-                    .shouldHave(size(0));
-        });
+        Allure.step("Check that spending was deleted", () -> mainPage
+                .getSpendingTableRows()
+                .shouldHave(size(0)));
+
     }
 
 }
